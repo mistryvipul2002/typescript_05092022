@@ -1,3 +1,6 @@
 .DS_Store
 prep
 node_modules
+dist
+ts-demo/dist
+ts-demo/node_modules
