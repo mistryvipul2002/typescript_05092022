@@ -16,16 +16,10 @@ var supportedCommands = [
 	{ op: "divide", perform: (a: any, b: any) => a / b },
 ];
 
-class HistoryItem {
+interface HistoryItem {
 	id: number;
 	operand: string;
 	value: number;
-
-	constructor(operand: string, value: number) {
-		this.id = historySeq++;
-		this.operand = operand;
-		this.value = value;
-	}
 }
 
 rl.on('line', (line: string) => {
@@ -37,7 +31,7 @@ rl.on('line', (line: string) => {
 		if (supportedCommand.op == op) {
 			result = supportedCommand.perform(result, value);
 			console.log("Result = " + result);
-			historyItems.push(new HistoryItem(op, value));
+			historyItems.push({ id: historySeq++, operand: op, value: value });
 		}
 	});
 
