@@ -7,13 +7,14 @@ const rl = readline.createInterface({
 
 rl.prompt();
 
-var historySeq = 0, result = 0, historyItems: HistoryItem[] = [];
+var result = 0, historyItems: HistoryItem[] = [];
 
 var supportedCommands = [
 	{ op: "add", perform: (a: any, b: any) => a + b },
 	{ op: "substract", perform: (a: any, b: any) => a - b },
 	{ op: "multiply", perform: (a: any, b: any) => a * b },
 	{ op: "divide", perform: (a: any, b: any) => a / b },
+	{ op: "reminder", perform: (a: any, b: any) => a % b },
 ];
 
 interface HistoryItem {
@@ -31,7 +32,12 @@ rl.on('line', (line: string) => {
 		if (supportedCommand.op == op) {
 			result = supportedCommand.perform(result, value);
 			console.log("Result = " + result);
-			historyItems.push({ id: historySeq++, operand: op, value: value });
+			historyItems.push(
+				{
+					id: Math.max(...historyItems.map(h => h.id), 0) + 1,
+					operand: op,
+					value: value
+				});
 		}
 	});
 
