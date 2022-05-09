@@ -7,7 +7,7 @@ const rl = readline.createInterface({
 
 rl.prompt();
 
-var historySeq = 0, result = 0;
+var historySeq = 0, result = 0, historyItems: HistoryItem[] = [];
 
 var supportedCommands = [
 	{ op: "add", perform: (a: any, b: any) => a + b },
@@ -27,8 +27,6 @@ class HistoryItem {
 		this.value = value;
 	}
 }
-
-var historyItems: HistoryItem[] = [];
 
 rl.on('line', (line: string) => {
 	var inputs = line.trim().split(" ");
